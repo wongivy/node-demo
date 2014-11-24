@@ -10,8 +10,6 @@ var sqlite3 = require('sqlite3');
 var express = require('express');
 var bodyParser = require('body-parser');
 
-var tasksController = require('./controllers/taskController');
-
 //open the database
 var dbPath = __dirname + '/data/tasks.db';
 var db = new sqlite3.Database(dbPath, function(err) {
@@ -26,17 +24,22 @@ var db = new sqlite3.Database(dbPath, function(err) {
         var app = express();
 
         //use the JSON parser from bodyParser
+        app.use(bodyParser.json());
 
         //serve static files from the /static sub-directory
         app.use(express.static(__dirname + '/static'));
 
-        //create a router for our REST API
+        //create routes for our REST API
+        //GET /api/tasks - returns all tasks
 
-        //add routers from our various controllers
-        //for now, all we have is a tasksController
+        //POST /api/tasks - inserts a new task
 
-        //mount all REST API resources under an /api resource
-        //all of the controller resources will be relative to this
+        //GET /api/tasks/:id - gets a particular task
+
+        //PUT /api/tasks/:id - updates a particular task
+
+
+
 
         //finally, add an error handler that sends back the error info as JSON
         app.use(function(err, req, res, next) {
